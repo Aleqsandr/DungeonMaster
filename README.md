@@ -1,2 +1,2 @@
-# DungeonMaster
-OpenGL IMAC project
+# DUNJEONMASTER
+IMAC OPENGL PROJECT

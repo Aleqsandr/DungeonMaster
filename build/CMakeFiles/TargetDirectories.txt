@@ -1,0 +1,2 @@
+/home/aleqsandr/Bureau/DungeonMaster/build/TPX/CMakeFiles/DunjeonMaster.dir
+/home/aleqsandr/Bureau/DungeonMaster/build/glimac/CMakeFiles/glimac.dir
