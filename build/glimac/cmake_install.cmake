@@ -1,4 +1,4 @@
-# Install script for directory: /home/aleqsandr/Bureau/DungeonMaster/workspace/glimac
+# Install script for directory: /home/couavouz/Documents/IMAC2/OPENGL/DungeonMaster/workspace/glimac
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
