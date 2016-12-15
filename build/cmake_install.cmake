@@ -1,4 +1,4 @@
-# Install script for directory: /home/couavouz/Documents/IMAC2/OPENGL/DungeonMaster/workspace
+# Install script for directory: /home/aleqsandr/Bureau/DungeonMaster/workspace
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -34,8 +34,8 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("/home/couavouz/Documents/IMAC2/OPENGL/DungeonMaster/build/glimac/cmake_install.cmake")
-  include("/home/couavouz/Documents/IMAC2/OPENGL/DungeonMaster/build/TPX/cmake_install.cmake")
+  include("/home/aleqsandr/Bureau/DungeonMaster/build/glimac/cmake_install.cmake")
+  include("/home/aleqsandr/Bureau/DungeonMaster/build/TPX/cmake_install.cmake")
 
 endif()
 
@@ -47,5 +47,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/couavouz/Documents/IMAC2/OPENGL/DungeonMaster/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/aleqsandr/Bureau/DungeonMaster/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

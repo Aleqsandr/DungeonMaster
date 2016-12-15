@@ -2,6 +2,7 @@
 #include <glimac/FilePath.hpp>
 #include <glimac/Program.hpp>
 #include <glimac/Image.hpp>
+#include <glimac/Sphere.hpp>
 #include <GL/glew.h>
 #include <glimac/glm.hpp>
 #include <cstddef>
@@ -47,9 +48,9 @@ int main(int argc, char** argv)
     Scene s = Scene();
     s.Scene::loadmap();
     Cube c = Cube();
+    Sphere skybox = Sphere(1000, 32, 32);
     Player player = Player();
-
-    cout << s.getwidth() << " " << s.getheight() << endl;
+    player.camera.moveTo(vec3(20, 0, 0));
 
     unique_ptr<Image> img = loadImage("assets/texture.jpg");
 
@@ -57,6 +58,16 @@ int main(int argc, char** argv)
     glGenTextures(1, &tex);
     glBindTexture(GL_TEXTURE_2D, tex);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, img->getWidth(), img->getHeight(), 0, GL_RGBA, GL_FLOAT, img->getPixels());
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glBindTexture(GL_TEXTURE_2D, 0);
+
+    unique_ptr<Image> sky = loadImage("assets/skybox.jpg");
+
+    GLuint skytex;
+    glGenTextures(1, &skytex);
+    glBindTexture(GL_TEXTURE_2D, skytex);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, sky->getWidth(), sky->getHeight(), 0, GL_RGBA, GL_FLOAT, sky->getPixels());
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glBindTexture(GL_TEXTURE_2D, 0);
@@ -105,7 +116,7 @@ int main(int argc, char** argv)
     // END INITIALIZATION CODE
 
     glEnable(GL_DEPTH_TEST);
-    float vitesseL = 0, vitesseF = 0;
+    float vitesseL = 0, vitesseF = 0, rotationL = 0;
 
     int i = 0;
 
@@ -119,32 +130,38 @@ int main(int argc, char** argv)
             {
                 done = true; // Leave the loop after this iteration
             }
-            else if (e.type == SDL_MOUSEMOTION)
-            {
-                if (SDL_GetMouseState(nullptr, nullptr) & SDL_BUTTON(SDL_BUTTON_LEFT))
-                {
-                    player.camera.rotateLeft(-e.motion.xrel * 0.2);
-                    player.camera.rotateUp(-e.motion.yrel * 0.2);
-                }
-            }
+            // else if (e.type == SDL_MOUSEMOTION)
+            // {
+            //     if (SDL_GetMouseState(nullptr, nullptr) & SDL_BUTTON(SDL_BUTTON_LEFT))
+            //     {
+            //         player.camera.rotateLeft(-e.motion.xrel * 0.2);
+            //         player.camera.rotateUp(-e.motion.yrel * 0.2);
+            //     }
+            // }
             else if (e.type == SDL_KEYDOWN)
             {
                 switch(e.key.keysym.sym)
                 {
-                case SDLK_z:
-                    vitesseF = 0.02;
-                    break;
-                case SDLK_q:
-                    vitesseL = 0.02;
-                    break;
-                case SDLK_s:
-                    vitesseF = -0.02;
-                    break;
-                case SDLK_d:
-                    vitesseL = -0.02;
-                    break;
-                default:
-                    break;
+                    case SDLK_z:
+                        vitesseF = 0.02;
+                        break;
+                    case SDLK_q:
+                        vitesseL = 0.02;
+                        break;
+                    case SDLK_s:
+                        vitesseF = -0.02;
+                        break;
+                    case SDLK_d:
+                        vitesseL = -0.02;
+                        break;
+                    case SDLK_a:
+                        rotationL = 0.4;
+                        break;
+                    case SDLK_e:
+                        rotationL = -0.4;
+                        break;
+                    default:
+                        break;
                 }
 
             }
@@ -169,6 +186,12 @@ int main(int argc, char** argv)
                     if(!keyState[SDLK_a])
                         vitesseL = 0;
                     break;
+                case SDLK_a:
+                    if(!keyState[SDLK_e])
+                        rotationL = 0;
+                case SDLK_e:
+                    if(!keyState[SDLK_a])
+                        rotationL = 0;
                 case SDLK_ESCAPE:
                     break;
                 default:
@@ -179,6 +202,7 @@ int main(int argc, char** argv)
         
         player.camera.moveFront(vitesseF);
         player.camera.moveLeft(vitesseL);
+        player.camera.rotateLeft(rotationL);
 
         // START RENDERING CODE
 

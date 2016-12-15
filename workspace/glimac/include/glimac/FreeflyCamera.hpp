@@ -13,6 +13,7 @@ public:
     void rotateUp(float degrees);
     void computeDirectionVectors();
     glm::mat4 getViewMatrix() const;
+    void moveTo(glm::vec3 position);
 
 private:
 	float m_fPhi;

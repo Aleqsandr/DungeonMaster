@@ -1,8 +1,2 @@
-/home/couavouz/Documents/IMAC2/OPENGL/DungeonMaster/build/CMakeFiles/edit_cache.dir
-/home/couavouz/Documents/IMAC2/OPENGL/DungeonMaster/build/CMakeFiles/rebuild_cache.dir
-/home/couavouz/Documents/IMAC2/OPENGL/DungeonMaster/build/glimac/CMakeFiles/edit_cache.dir
-/home/couavouz/Documents/IMAC2/OPENGL/DungeonMaster/build/glimac/CMakeFiles/rebuild_cache.dir
-/home/couavouz/Documents/IMAC2/OPENGL/DungeonMaster/build/glimac/CMakeFiles/glimac.dir
-/home/couavouz/Documents/IMAC2/OPENGL/DungeonMaster/build/TPX/CMakeFiles/rebuild_cache.dir
-/home/couavouz/Documents/IMAC2/OPENGL/DungeonMaster/build/TPX/CMakeFiles/edit_cache.dir
-/home/couavouz/Documents/IMAC2/OPENGL/DungeonMaster/build/TPX/CMakeFiles/DunjeonMaster.dir
+/home/aleqsandr/Bureau/DungeonMaster/build/TPX/CMakeFiles/DunjeonMaster.dir
+/home/aleqsandr/Bureau/DungeonMaster/build/glimac/CMakeFiles/glimac.dir

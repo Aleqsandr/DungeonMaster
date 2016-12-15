@@ -1,4 +1,4 @@
-# Install script for directory: /home/couavouz/Documents/IMAC2/OPENGL/DungeonMaster/workspace/TPX
+# Install script for directory: /home/aleqsandr/Bureau/DungeonMaster/workspace/TPX
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

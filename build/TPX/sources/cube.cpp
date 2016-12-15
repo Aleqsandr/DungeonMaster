@@ -70,4 +70,10 @@ namespace glimac {
             m_Vertices.push_back(vertex);
         }
     }
+
+    Cube::Cube()
+    {
+        build();
+    }
+    
 }

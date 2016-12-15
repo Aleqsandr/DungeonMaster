@@ -46,4 +46,11 @@ namespace glimac {
         return glm::lookAt(m_Position, m_Position + m_FrontVector, m_UpVector);
     }
 
+    void FreeflyCamera::moveTo(glm::vec3 position)
+    {
+        m_Position.x = position.x;
+        m_Position.y = position.y;
+        m_Position.z = position.z;
+    }
+
 }
