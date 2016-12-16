@@ -1,25 +1,24 @@
 Determining if the pthread_create exist failed with the following output:
-Change Dir: /home/aleqsandr/Bureau/DungeonMaster/build/CMakeFiles/CMakeTmp
+Change Dir: /home/couavouz/Documents/IMAC2/OPENGL/DungeonMaster/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTryCompileExec3499965370/fast"
-/usr/bin/make -f CMakeFiles/cmTryCompileExec3499965370.dir/build.make CMakeFiles/cmTryCompileExec3499965370.dir/build
-make[1]: Entering directory '/home/aleqsandr/Bureau/DungeonMaster/build/CMakeFiles/CMakeTmp'
-/usr/bin/cmake -E cmake_progress_report /home/aleqsandr/Bureau/DungeonMaster/build/CMakeFiles/CMakeTmp/CMakeFiles 1
-Building C object CMakeFiles/cmTryCompileExec3499965370.dir/CheckSymbolExists.c.o
-/usr/bin/cc    -o CMakeFiles/cmTryCompileExec3499965370.dir/CheckSymbolExists.c.o   -c /home/aleqsandr/Bureau/DungeonMaster/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c
-Linking C executable cmTryCompileExec3499965370
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec3499965370.dir/link.txt --verbose=1
-/usr/bin/cc       CMakeFiles/cmTryCompileExec3499965370.dir/CheckSymbolExists.c.o  -o cmTryCompileExec3499965370 -rdynamic 
-CMakeFiles/cmTryCompileExec3499965370.dir/CheckSymbolExists.c.o: dans la fonction « main »:
+Run Build Command:"/usr/bin/make" "cmTC_14001/fast"
+/usr/bin/make -f CMakeFiles/cmTC_14001.dir/build.make CMakeFiles/cmTC_14001.dir/build
+make[1] : on entre dans le répertoire « /home/couavouz/Documents/IMAC2/OPENGL/DungeonMaster/build/CMakeFiles/CMakeTmp »
+Building C object CMakeFiles/cmTC_14001.dir/CheckSymbolExists.c.o
+/usr/bin/cc     -o CMakeFiles/cmTC_14001.dir/CheckSymbolExists.c.o   -c /home/couavouz/Documents/IMAC2/OPENGL/DungeonMaster/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c
+Linking C executable cmTC_14001
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_14001.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTC_14001.dir/CheckSymbolExists.c.o  -o cmTC_14001 -rdynamic 
+CMakeFiles/cmTC_14001.dir/CheckSymbolExists.c.o: dans la fonction « main »:
 CheckSymbolExists.c:(.text+0x16): référence indéfinie vers « pthread_create »
 collect2: error: ld returned 1 exit status
-CMakeFiles/cmTryCompileExec3499965370.dir/build.make:88: recipe for target 'cmTryCompileExec3499965370' failed
-make[1]: *** [cmTryCompileExec3499965370] Error 1
-make[1]: Leaving directory '/home/aleqsandr/Bureau/DungeonMaster/build/CMakeFiles/CMakeTmp'
-Makefile:117: recipe for target 'cmTryCompileExec3499965370/fast' failed
-make: *** [cmTryCompileExec3499965370/fast] Error 2
+CMakeFiles/cmTC_14001.dir/build.make:97 : la recette pour la cible « cmTC_14001 » a échouée
+make[1]: *** [cmTC_14001] Erreur 1
+make[1] : on quitte le répertoire « /home/couavouz/Documents/IMAC2/OPENGL/DungeonMaster/build/CMakeFiles/CMakeTmp »
+Makefile:126 : la recette pour la cible « cmTC_14001/fast » a échouée
+make: *** [cmTC_14001/fast] Erreur 2
 
-File /home/aleqsandr/Bureau/DungeonMaster/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
+File /home/couavouz/Documents/IMAC2/OPENGL/DungeonMaster/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
 /* */
 #include <pthread.h>
 
@@ -35,23 +34,22 @@ int main(int argc, char** argv)
 }
 
 Determining if the function pthread_create exists in the pthreads failed with the following output:
-Change Dir: /home/aleqsandr/Bureau/DungeonMaster/build/CMakeFiles/CMakeTmp
+Change Dir: /home/couavouz/Documents/IMAC2/OPENGL/DungeonMaster/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTryCompileExec440195890/fast"
-/usr/bin/make -f CMakeFiles/cmTryCompileExec440195890.dir/build.make CMakeFiles/cmTryCompileExec440195890.dir/build
-make[1]: Entering directory '/home/aleqsandr/Bureau/DungeonMaster/build/CMakeFiles/CMakeTmp'
-/usr/bin/cmake -E cmake_progress_report /home/aleqsandr/Bureau/DungeonMaster/build/CMakeFiles/CMakeTmp/CMakeFiles 1
-Building C object CMakeFiles/cmTryCompileExec440195890.dir/CheckFunctionExists.c.o
-/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTryCompileExec440195890.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.2/Modules/CheckFunctionExists.c
-Linking C executable cmTryCompileExec440195890
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec440195890.dir/link.txt --verbose=1
-/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create    CMakeFiles/cmTryCompileExec440195890.dir/CheckFunctionExists.c.o  -o cmTryCompileExec440195890 -rdynamic -lpthreads 
-/usr/bin/ld: ne peut trouver -lpthreads
+Run Build Command:"/usr/bin/make" "cmTC_e86ef/fast"
+/usr/bin/make -f CMakeFiles/cmTC_e86ef.dir/build.make CMakeFiles/cmTC_e86ef.dir/build
+make[1] : on entre dans le répertoire « /home/couavouz/Documents/IMAC2/OPENGL/DungeonMaster/build/CMakeFiles/CMakeTmp »
+Building C object CMakeFiles/cmTC_e86ef.dir/CheckFunctionExists.c.o
+/usr/bin/cc    -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTC_e86ef.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.5/Modules/CheckFunctionExists.c
+Linking C executable cmTC_e86ef
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_e86ef.dir/link.txt --verbose=1
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create    CMakeFiles/cmTC_e86ef.dir/CheckFunctionExists.c.o  -o cmTC_e86ef -rdynamic -lpthreads 
+/usr/bin/ld : ne peut trouver -lpthreads
 collect2: error: ld returned 1 exit status
-CMakeFiles/cmTryCompileExec440195890.dir/build.make:88: recipe for target 'cmTryCompileExec440195890' failed
-make[1]: Leaving directory '/home/aleqsandr/Bureau/DungeonMaster/build/CMakeFiles/CMakeTmp'
-make[1]: *** [cmTryCompileExec440195890] Error 1
-Makefile:117: recipe for target 'cmTryCompileExec440195890/fast' failed
-make: *** [cmTryCompileExec440195890/fast] Error 2
+CMakeFiles/cmTC_e86ef.dir/build.make:97 : la recette pour la cible « cmTC_e86ef » a échouée
+make[1]: *** [cmTC_e86ef] Erreur 1
+make[1] : on quitte le répertoire « /home/couavouz/Documents/IMAC2/OPENGL/DungeonMaster/build/CMakeFiles/CMakeTmp »
+Makefile:126 : la recette pour la cible « cmTC_e86ef/fast » a échouée
+make: *** [cmTC_e86ef/fast] Erreur 2
 
 
