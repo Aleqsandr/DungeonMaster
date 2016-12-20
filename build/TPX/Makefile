@@ -163,6 +163,30 @@ sources/cube.cpp.s:
 	cd /home/aleqsandr/Bureau/DungeonMaster/build && $(MAKE) -f TPX/CMakeFiles/DunjeonMaster.dir/build.make TPX/CMakeFiles/DunjeonMaster.dir/sources/cube.cpp.s
 .PHONY : sources/cube.cpp.s
 
+sources/monster.o: sources/monster.cpp.o
+.PHONY : sources/monster.o
+
+# target to build an object file
+sources/monster.cpp.o:
+	cd /home/aleqsandr/Bureau/DungeonMaster/build && $(MAKE) -f TPX/CMakeFiles/DunjeonMaster.dir/build.make TPX/CMakeFiles/DunjeonMaster.dir/sources/monster.cpp.o
+.PHONY : sources/monster.cpp.o
+
+sources/monster.i: sources/monster.cpp.i
+.PHONY : sources/monster.i
+
+# target to preprocess a source file
+sources/monster.cpp.i:
+	cd /home/aleqsandr/Bureau/DungeonMaster/build && $(MAKE) -f TPX/CMakeFiles/DunjeonMaster.dir/build.make TPX/CMakeFiles/DunjeonMaster.dir/sources/monster.cpp.i
+.PHONY : sources/monster.cpp.i
+
+sources/monster.s: sources/monster.cpp.s
+.PHONY : sources/monster.s
+
+# target to generate assembly for a file
+sources/monster.cpp.s:
+	cd /home/aleqsandr/Bureau/DungeonMaster/build && $(MAKE) -f TPX/CMakeFiles/DunjeonMaster.dir/build.make TPX/CMakeFiles/DunjeonMaster.dir/sources/monster.cpp.s
+.PHONY : sources/monster.cpp.s
+
 sources/pixel.o: sources/pixel.cpp.o
 .PHONY : sources/pixel.o
 
@@ -250,6 +274,9 @@ help:
 	@echo "... sources/cube.o"
 	@echo "... sources/cube.i"
 	@echo "... sources/cube.s"
+	@echo "... sources/monster.o"
+	@echo "... sources/monster.i"
+	@echo "... sources/monster.s"
 	@echo "... sources/pixel.o"
 	@echo "... sources/pixel.i"
 	@echo "... sources/pixel.s"

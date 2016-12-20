@@ -16,6 +16,7 @@
 #include "headers/pixel.hpp"
 #include "headers/cube.hpp"
 #include "headers/player.hpp"
+#include "headers/monster.hpp"
 
 using namespace glimac;
 using namespace std;
@@ -46,11 +47,17 @@ int main(int argc, char** argv)
     // START INITIALIZATION CODE
 
     Scene s = Scene();
-    s.Scene::loadmap();
+    s.loadmap();
     Cube c = Cube();
     Sphere skybox = Sphere(200, 32, 32);
     Player player = Player();
-    player.camera.moveTo(vec3(20, 0, 0));
+    player.camera.moveTo(vec3(20, 0, 0)); 
+
+    // //CREATE MONSTER AT THE RIGHT PLACE
+    // mat4 tmp = mat4(1.f);
+    // mat4 posMonster =  translate(tmp * vec3(s.getwidth(), 0, s.getheight()));
+    Monster m = Monster(vec3(20, 0, 0), 0, 10, 32, 32);
+
 
     unique_ptr<Image> img = loadImage("assets/texture.jpg");
     unique_ptr<Image> sky = loadImage("assets/skybox.jpg");
@@ -229,6 +236,9 @@ int main(int argc, char** argv)
         // START RENDERING CODE
 
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+        m.drawMonster(locTexture);
+
 
         ProjMatrix = perspective(glm::radians(70.f), 800.f/600.f, 0.1f, 1100.f);
         glBindVertexArray(vaoskybox);

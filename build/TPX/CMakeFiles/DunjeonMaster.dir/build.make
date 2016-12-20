@@ -95,9 +95,32 @@ TPX/CMakeFiles/DunjeonMaster.dir/sources/pixel.cpp.o.provides: TPX/CMakeFiles/Du
 
 TPX/CMakeFiles/DunjeonMaster.dir/sources/pixel.cpp.o.provides.build: TPX/CMakeFiles/DunjeonMaster.dir/sources/pixel.cpp.o
 
+TPX/CMakeFiles/DunjeonMaster.dir/sources/monster.cpp.o: TPX/CMakeFiles/DunjeonMaster.dir/flags.make
+TPX/CMakeFiles/DunjeonMaster.dir/sources/monster.cpp.o: /home/aleqsandr/Bureau/DungeonMaster/workspace/TPX/sources/monster.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/aleqsandr/Bureau/DungeonMaster/build/CMakeFiles $(CMAKE_PROGRESS_3)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object TPX/CMakeFiles/DunjeonMaster.dir/sources/monster.cpp.o"
+	cd /home/aleqsandr/Bureau/DungeonMaster/build/TPX && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/DunjeonMaster.dir/sources/monster.cpp.o -c /home/aleqsandr/Bureau/DungeonMaster/workspace/TPX/sources/monster.cpp
+
+TPX/CMakeFiles/DunjeonMaster.dir/sources/monster.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/DunjeonMaster.dir/sources/monster.cpp.i"
+	cd /home/aleqsandr/Bureau/DungeonMaster/build/TPX && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/aleqsandr/Bureau/DungeonMaster/workspace/TPX/sources/monster.cpp > CMakeFiles/DunjeonMaster.dir/sources/monster.cpp.i
+
+TPX/CMakeFiles/DunjeonMaster.dir/sources/monster.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/DunjeonMaster.dir/sources/monster.cpp.s"
+	cd /home/aleqsandr/Bureau/DungeonMaster/build/TPX && /usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/aleqsandr/Bureau/DungeonMaster/workspace/TPX/sources/monster.cpp -o CMakeFiles/DunjeonMaster.dir/sources/monster.cpp.s
+
+TPX/CMakeFiles/DunjeonMaster.dir/sources/monster.cpp.o.requires:
+.PHONY : TPX/CMakeFiles/DunjeonMaster.dir/sources/monster.cpp.o.requires
+
+TPX/CMakeFiles/DunjeonMaster.dir/sources/monster.cpp.o.provides: TPX/CMakeFiles/DunjeonMaster.dir/sources/monster.cpp.o.requires
+	$(MAKE) -f TPX/CMakeFiles/DunjeonMaster.dir/build.make TPX/CMakeFiles/DunjeonMaster.dir/sources/monster.cpp.o.provides.build
+.PHONY : TPX/CMakeFiles/DunjeonMaster.dir/sources/monster.cpp.o.provides
+
+TPX/CMakeFiles/DunjeonMaster.dir/sources/monster.cpp.o.provides.build: TPX/CMakeFiles/DunjeonMaster.dir/sources/monster.cpp.o
+
 TPX/CMakeFiles/DunjeonMaster.dir/sources/player.cpp.o: TPX/CMakeFiles/DunjeonMaster.dir/flags.make
 TPX/CMakeFiles/DunjeonMaster.dir/sources/player.cpp.o: /home/aleqsandr/Bureau/DungeonMaster/workspace/TPX/sources/player.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/aleqsandr/Bureau/DungeonMaster/build/CMakeFiles $(CMAKE_PROGRESS_3)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/aleqsandr/Bureau/DungeonMaster/build/CMakeFiles $(CMAKE_PROGRESS_4)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object TPX/CMakeFiles/DunjeonMaster.dir/sources/player.cpp.o"
 	cd /home/aleqsandr/Bureau/DungeonMaster/build/TPX && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/DunjeonMaster.dir/sources/player.cpp.o -c /home/aleqsandr/Bureau/DungeonMaster/workspace/TPX/sources/player.cpp
 
@@ -120,7 +143,7 @@ TPX/CMakeFiles/DunjeonMaster.dir/sources/player.cpp.o.provides.build: TPX/CMakeF
 
 TPX/CMakeFiles/DunjeonMaster.dir/sources/cube.cpp.o: TPX/CMakeFiles/DunjeonMaster.dir/flags.make
 TPX/CMakeFiles/DunjeonMaster.dir/sources/cube.cpp.o: /home/aleqsandr/Bureau/DungeonMaster/workspace/TPX/sources/cube.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/aleqsandr/Bureau/DungeonMaster/build/CMakeFiles $(CMAKE_PROGRESS_4)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/aleqsandr/Bureau/DungeonMaster/build/CMakeFiles $(CMAKE_PROGRESS_5)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object TPX/CMakeFiles/DunjeonMaster.dir/sources/cube.cpp.o"
 	cd /home/aleqsandr/Bureau/DungeonMaster/build/TPX && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/DunjeonMaster.dir/sources/cube.cpp.o -c /home/aleqsandr/Bureau/DungeonMaster/workspace/TPX/sources/cube.cpp
 
@@ -143,7 +166,7 @@ TPX/CMakeFiles/DunjeonMaster.dir/sources/cube.cpp.o.provides.build: TPX/CMakeFil
 
 TPX/CMakeFiles/DunjeonMaster.dir/dunjeonmaster.cpp.o: TPX/CMakeFiles/DunjeonMaster.dir/flags.make
 TPX/CMakeFiles/DunjeonMaster.dir/dunjeonmaster.cpp.o: /home/aleqsandr/Bureau/DungeonMaster/workspace/TPX/dunjeonmaster.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/aleqsandr/Bureau/DungeonMaster/build/CMakeFiles $(CMAKE_PROGRESS_5)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/aleqsandr/Bureau/DungeonMaster/build/CMakeFiles $(CMAKE_PROGRESS_6)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object TPX/CMakeFiles/DunjeonMaster.dir/dunjeonmaster.cpp.o"
 	cd /home/aleqsandr/Bureau/DungeonMaster/build/TPX && /usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/DunjeonMaster.dir/dunjeonmaster.cpp.o -c /home/aleqsandr/Bureau/DungeonMaster/workspace/TPX/dunjeonmaster.cpp
 
@@ -168,6 +191,7 @@ TPX/CMakeFiles/DunjeonMaster.dir/dunjeonmaster.cpp.o.provides.build: TPX/CMakeFi
 DunjeonMaster_OBJECTS = \
 "CMakeFiles/DunjeonMaster.dir/sources/scene.cpp.o" \
 "CMakeFiles/DunjeonMaster.dir/sources/pixel.cpp.o" \
+"CMakeFiles/DunjeonMaster.dir/sources/monster.cpp.o" \
 "CMakeFiles/DunjeonMaster.dir/sources/player.cpp.o" \
 "CMakeFiles/DunjeonMaster.dir/sources/cube.cpp.o" \
 "CMakeFiles/DunjeonMaster.dir/dunjeonmaster.cpp.o"
@@ -177,6 +201,7 @@ DunjeonMaster_EXTERNAL_OBJECTS =
 
 TPX/DunjeonMaster: TPX/CMakeFiles/DunjeonMaster.dir/sources/scene.cpp.o
 TPX/DunjeonMaster: TPX/CMakeFiles/DunjeonMaster.dir/sources/pixel.cpp.o
+TPX/DunjeonMaster: TPX/CMakeFiles/DunjeonMaster.dir/sources/monster.cpp.o
 TPX/DunjeonMaster: TPX/CMakeFiles/DunjeonMaster.dir/sources/player.cpp.o
 TPX/DunjeonMaster: TPX/CMakeFiles/DunjeonMaster.dir/sources/cube.cpp.o
 TPX/DunjeonMaster: TPX/CMakeFiles/DunjeonMaster.dir/dunjeonmaster.cpp.o
@@ -197,6 +222,7 @@ TPX/CMakeFiles/DunjeonMaster.dir/build: TPX/DunjeonMaster
 
 TPX/CMakeFiles/DunjeonMaster.dir/requires: TPX/CMakeFiles/DunjeonMaster.dir/sources/scene.cpp.o.requires
 TPX/CMakeFiles/DunjeonMaster.dir/requires: TPX/CMakeFiles/DunjeonMaster.dir/sources/pixel.cpp.o.requires
+TPX/CMakeFiles/DunjeonMaster.dir/requires: TPX/CMakeFiles/DunjeonMaster.dir/sources/monster.cpp.o.requires
 TPX/CMakeFiles/DunjeonMaster.dir/requires: TPX/CMakeFiles/DunjeonMaster.dir/sources/player.cpp.o.requires
 TPX/CMakeFiles/DunjeonMaster.dir/requires: TPX/CMakeFiles/DunjeonMaster.dir/sources/cube.cpp.o.requires
 TPX/CMakeFiles/DunjeonMaster.dir/requires: TPX/CMakeFiles/DunjeonMaster.dir/dunjeonmaster.cpp.o.requires
