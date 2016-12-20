@@ -20,7 +20,7 @@ float Scene::getzones(){return zones;}
 
 void Scene::loadmap()
 {
-	std::ifstream file("assets/ultimatemap.ppm");
+	std::ifstream file("assets/map2.ppm");
     if (file)
     {
     	cout << "YES, the map has been loading successfully." << endl;

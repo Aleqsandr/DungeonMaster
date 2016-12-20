@@ -56,7 +56,7 @@ int main(int argc, char** argv)
     // //CREATE MONSTER AT THE RIGHT PLACE
     // mat4 tmp = mat4(1.f);
     // mat4 posMonster =  translate(tmp * vec3(s.getwidth(), 0, s.getheight()));
-    Monster m = Monster(vec3(20, 0, 0), 0, 10, 32, 32);
+    Monster m = Monster(vec3(20, 0, 0), 0, 2, 32, 32);
 
 
     unique_ptr<Image> img = loadImage("assets/texture.jpg");
@@ -184,10 +184,10 @@ int main(int argc, char** argv)
                         vitesseL = -0.02;
                         break;
                     case SDLK_a:
-                        rotationL = 0.4;
+                        rotationL = 0.8;
                         break;
                     case SDLK_e:
-                        rotationL = -0.4;
+                        rotationL = -0.8;
                         break;
                     default:
                         break;
@@ -254,13 +254,15 @@ int main(int argc, char** argv)
         glDrawArrays(GL_TRIANGLES, 0, skybox.getVertexCount());
 
         glBindVertexArray(vao);
+
+        // dessin de la map
         for (int i = 0; i < s.getwidth(); i++)
         {
             for (int j = 0; j < s.getheight(); j++)
             {
                 if (s.getpixel(s.getwidth()*j + i).getred() == 0 && s.getpixel(s.getwidth()*j + i).getgreen() == 0 && s.getpixel(s.getwidth()*j + i).getblue() == 0)
                 {
-                    MVMatrix = player.camera.getViewMatrix() * translate(mat4(1.f), vec3(2*i, 0, (-2*j)-5));
+                    MVMatrix = player.camera.getViewMatrix() * translate(mat4(1.f), vec3(2*i, 0, (-2*j)));
                     glUniformMatrix4fv(uMVPMatrix,    1, GL_FALSE, value_ptr(ProjMatrix * MVMatrix));
                     glUniformMatrix4fv(uMVMatrix,     1, GL_FALSE, value_ptr(MVMatrix));
                     glUniformMatrix4fv(uNormalMatrix, 1, GL_FALSE, value_ptr(NormalMatrix));
@@ -269,6 +271,22 @@ int main(int argc, char** argv)
 
                     glDrawArrays(GL_TRIANGLES, 0, c.getVertexCount());
                 }
+            }
+        }
+
+        // dessin du sol
+        for (int i = 0; i < s.getwidth(); i++)
+        {
+            for (int j = 0; j < s.getheight(); j++)
+            {
+                MVMatrix = player.camera.getViewMatrix() * translate(mat4(1.f), vec3(2*i, -2, (-2*j)));
+                glUniformMatrix4fv(uMVPMatrix,    1, GL_FALSE, value_ptr(ProjMatrix * MVMatrix));
+                glUniformMatrix4fv(uMVMatrix,     1, GL_FALSE, value_ptr(MVMatrix));
+                glUniformMatrix4fv(uNormalMatrix, 1, GL_FALSE, value_ptr(NormalMatrix));
+                glUniform1i(locTexture, 0);
+                glBindTexture(GL_TEXTURE_2D, tex);
+
+                glDrawArrays(GL_TRIANGLES, 0, c.getVertexCount());
             }
         }
 
