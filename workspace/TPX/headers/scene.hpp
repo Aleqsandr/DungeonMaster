@@ -3,6 +3,7 @@
 
 #include <cstdlib>
 #include <vector>
+#include <glimac/glm.hpp>
 #include "pixel.hpp"
 
 class Scene
@@ -15,7 +16,6 @@ class Scene
 
 	public:
 
-
 	Scene();
 	std::vector<Pixel> getpixels();
 	Pixel getpixel(int a);
@@ -25,6 +25,13 @@ class Scene
 	void loadmap();
 	void drawmap();
 	void print();
+
+	glm::vec2 currentpixel;
+	void pixelup();
+	void pixeldown();
+	void pixelright();
+	void pixelleft();
+
 };
 
 #endif

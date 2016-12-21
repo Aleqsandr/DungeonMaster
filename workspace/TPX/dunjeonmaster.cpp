@@ -51,7 +51,7 @@ int main(int argc, char** argv)
     Cube c = Cube();
     Sphere skybox = Sphere(200, 32, 32);
     Player player = Player();
-    player.camera.moveTo(vec3(20, 0, 0)); 
+    player.camera.moveTo(vec3(20, 0, 0));
 
     // //CREATE MONSTER AT THE RIGHT PLACE
     // mat4 tmp = mat4(1.f);
@@ -61,6 +61,7 @@ int main(int argc, char** argv)
 
     unique_ptr<Image> img = loadImage("assets/texture.jpg");
     unique_ptr<Image> sky = loadImage("assets/skybox.jpg");
+    unique_ptr<Image> ground = loadImage("assets/floortexture.jpg");
 
         // VBO
         
@@ -125,6 +126,14 @@ int main(int argc, char** argv)
         glGenTextures(1, &skytex);
         glBindTexture(GL_TEXTURE_2D, skytex);
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, sky->getWidth(), sky->getHeight(), 0, GL_RGBA, GL_FLOAT, sky->getPixels());
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        glBindTexture(GL_TEXTURE_2D, 0);
+
+        GLuint floortex;
+        glGenTextures(1, &floortex);
+        glBindTexture(GL_TEXTURE_2D, floortex);
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, ground->getWidth(), ground->getHeight(), 0, GL_RGBA, GL_FLOAT, ground->getPixels());
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
         glBindTexture(GL_TEXTURE_2D, 0);
@@ -238,22 +247,129 @@ int main(int argc, char** argv)
 
         if (walkingforward == true)
         {
-            player.camera.moveFront(0.1);
-            dist += 0.1;
-            if (dist >= 2)
+            if (player.camera.m_FrontVector.z == -1.0)
             {
-                walkingforward = false;
-                dist = 0;
+                if (s.getpixel((s.currentpixel.x+1) * s.getwidth() + s.currentpixel.y).getblue() == 255)
+                {
+                    player.camera.moveFront(0.1);
+                    dist += 0.1;
+                    if (dist >= 2)
+                    {
+                        walkingforward = false;
+                        dist = 0;
+                        s.pixelup();
+                    }    
+                }
+            }
+            if (player.camera.m_FrontVector.z == 1.0)
+            {
+                if (s.getpixel((s.currentpixel.x-1) * s.getwidth() + s.currentpixel.y).getblue() == 255)
+                {
+                    player.camera.moveFront(0.1);
+                    dist += 0.1;
+                    if (dist >= 2)
+                    {
+                        walkingforward = false;
+                        dist = 0;
+                        s.pixeldown();
+                    }
+                }
+            }
+            if (player.camera.m_FrontVector.x == 1.0)
+            {
+                if (s.getpixel(s.currentpixel.x * s.getwidth() + s.currentpixel.y + 1).getblue() == 255)
+                {
+                    player.camera.moveFront(0.1);
+                    dist += 0.1;
+                    if (dist >= 2)
+                    {
+                        walkingforward = false;
+                        dist = 0;
+                        s.pixelright();
+                    }
+                }
+            }
+            if (player.camera.m_FrontVector.x == -1.0)
+            {
+                if (s.getpixel(s.currentpixel.x * s.getwidth() + s.currentpixel.y - 1).getblue() == 255)
+                {
+                    player.camera.moveFront(0.1);
+                    dist += 0.1;
+                    if (dist >= 2)
+                    {
+                        walkingforward = false;
+                        dist = 0;
+                        s.pixelleft();
+                    }
+                }
             }
         }
         if (walkingbackward == true)
         {
-            player.camera.moveFront(-0.1);
-            dist += 0.1;
-            if (dist >= 2)
+            if (player.camera.m_FrontVector.z == -1.0)
             {
-                walkingbackward = false;
-                dist = 0;
+                if (s.getpixel((s.currentpixel.x-1) * s.getwidth() + s.currentpixel.y).getblue() == 255)
+                {
+                    player.camera.moveFront(-0.1);
+                    dist += 0.1;
+                    if (dist >= 2)
+                    {
+                        walkingbackward = false;
+                        dist = 0;
+                        // if (player.camera.m_FrontVector.z == -1.0) s.pixeldown();
+                        // if (player.camera.m_FrontVector.z == 1.0) s.pixelup();
+                        // if (player.camera.m_FrontVector.x == 1.0) s.pixelleft();
+                        // if (player.camera.m_FrontVector.x == -1.0) s.pixelright();
+                        // cout << "MY CURRENT PIXEL IS " << s.currentpixel << endl;
+                        s.pixeldown();
+                    }
+                    
+                }
+            }
+            if (player.camera.m_FrontVector.z == 1.0)
+            {
+                if (s.getpixel((s.currentpixel.x+1) * s.getwidth() + s.currentpixel.y).getblue() == 255)
+                {
+                    player.camera.moveFront(-0.1);
+                    dist += 0.1;
+                    if (dist >= 2)
+                    {
+                        walkingbackward = false;
+                        dist = 0;
+                        s.pixelup();
+                    }
+                    
+                }
+            }
+            if (player.camera.m_FrontVector.x == 1.0)
+            {
+                if (s.getpixel(s.currentpixel.x * s.getwidth() + s.currentpixel.y - 1).getblue() == 255)
+                {
+                    player.camera.moveFront(-0.1);
+                    dist += 0.1;
+                    if (dist >= 2)
+                    {
+                        walkingbackward = false;
+                        dist = 0;
+                        s.pixelleft();
+                    }
+                    
+                }
+            }
+            if (player.camera.m_FrontVector.x == -1.0)
+            {
+                if (s.getpixel(s.currentpixel.x * s.getwidth() + s.currentpixel.y + 1).getblue() == 255)
+                {
+                    player.camera.moveFront(-0.1);
+                    dist += 0.1;
+                    if (dist >= 2)
+                    {
+                        walkingbackward = false;
+                        dist = 0;
+                        s.pixelright();
+                    }
+                    
+                }
             }
         }
         if (turningleft == true)
@@ -326,7 +442,7 @@ int main(int argc, char** argv)
                 glUniformMatrix4fv(uMVMatrix,     1, GL_FALSE, value_ptr(MVMatrix));
                 glUniformMatrix4fv(uNormalMatrix, 1, GL_FALSE, value_ptr(NormalMatrix));
                 glUniform1i(locTexture, 0);
-                glBindTexture(GL_TEXTURE_2D, tex);
+                glBindTexture(GL_TEXTURE_2D, floortex);
 
                 glDrawArrays(GL_TRIANGLES, 0, c.getVertexCount());
             }

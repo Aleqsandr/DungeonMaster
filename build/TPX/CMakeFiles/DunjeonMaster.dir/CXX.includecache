@@ -75,6 +75,8 @@ cstdlib
 -
 vector
 -
+glimac/glm.hpp
+-
 pixel.hpp
 /home/aleqsandr/Bureau/DungeonMaster/workspace/TPX/headers/pixel.hpp
 

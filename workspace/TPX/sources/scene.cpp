@@ -11,7 +11,7 @@ using namespace std;
 
 Scene::Scene()
 {
-
+    currentpixel = glm::vec2(0, 10);
 }
 
 vector<Pixel> Scene::getpixels(){return pixels;}
@@ -23,7 +23,7 @@ void Scene::loadmap()
 	std::ifstream file("assets/map2.ppm");
     if (file)
     {
-    	cout << "YES, the map has been loading successfully." << endl;
+    	cout << "YES, the map has been loaded successfully." << endl;
     	string content;
     	getline(file, content);
         getline(file, content);
@@ -52,7 +52,7 @@ void Scene::loadmap()
         }
         file.close();
     }
-    else cerr << "Impossible de lire de fichier." << endl;
+    else cerr << "ERROR : map has not been loaded." << endl;
 }
 
 void Scene::drawmap()
@@ -64,6 +64,7 @@ void Scene::print()
 {
     for (int i = 0; i < pixels.size(); i++)
     {
+        cout << "Le pixel en " << i / getwidth() << ":" << i % getwidth() << " ";
         cout << pixels[i].getred() << " " << pixels[i].getgreen() << " " << pixels[i].getblue() << endl;
     }
 }
@@ -76,4 +77,24 @@ int Scene::getwidth()
 int Scene::getheight()
 {
     return height;
+}
+
+void Scene::pixelup()
+{
+    currentpixel.x++;
+}
+
+void Scene::pixeldown()
+{
+    currentpixel.x--;
+}
+
+void Scene::pixelright()
+{
+    currentpixel.y++;
+}
+
+void Scene::pixelleft()
+{
+    currentpixel.y--;
 }
