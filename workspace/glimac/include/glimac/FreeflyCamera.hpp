@@ -14,12 +14,17 @@ public:
     void computeDirectionVectors();
     glm::mat4 getViewMatrix() const;
     void moveTo(glm::vec3 position);
-
-private:
+    glm::vec3 getPosition();
+    void setPositionX(float a);
+    void setPositionY(float a);
+    void setPositionZ(float a);
+	glm::vec3 m_FrontVector;
 	float m_fPhi;
 	float m_fTheta;
+	float angle;
+
+private:
 	glm::vec3 m_Position;
-	glm::vec3 m_FrontVector;
 	glm::vec3 m_LeftVector;
 	glm::vec3 m_UpVector;
 };

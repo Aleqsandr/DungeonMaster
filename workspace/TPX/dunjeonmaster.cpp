@@ -149,6 +149,13 @@ int main(int argc, char** argv)
     float vitesseL = 0, vitesseF = 0, rotationL = 0;
     int i = 0;
 
+    bool walkingforward = false;
+    bool walkingbackward = false;
+    bool turningleft = false;
+    bool turningright = false;
+
+    float dist = 0;
+
     bool done = false;
     while(!done)
     {
@@ -172,22 +179,22 @@ int main(int argc, char** argv)
                 switch(e.key.keysym.sym)
                 {
                     case SDLK_z:
-                        vitesseF = 0.02;
+                        walkingforward = true;
                         break;
                     case SDLK_q:
-                        vitesseL = 0.02;
+                        // nothing for the moment
                         break;
                     case SDLK_s:
-                        vitesseF = -0.02;
+                        walkingbackward = true;
                         break;
                     case SDLK_d:
                         vitesseL = -0.02;
                         break;
                     case SDLK_a:
-                        rotationL = 0.8;
+                        turningleft = true;
                         break;
                     case SDLK_e:
-                        rotationL = -0.8;
+                        turningright = true;
                         break;
                     default:
                         break;
@@ -228,10 +235,45 @@ int main(int argc, char** argv)
                 }
             }
         }
-        
-        player.camera.moveFront(vitesseF);
-        player.camera.moveLeft(vitesseL);
-        player.camera.rotateLeft(rotationL);
+
+        if (walkingforward == true)
+        {
+            player.camera.moveFront(0.1);
+            dist += 0.1;
+            if (dist >= 2)
+            {
+                walkingforward = false;
+                dist = 0;
+            }
+        }
+        if (walkingbackward == true)
+        {
+            player.camera.moveFront(-0.1);
+            dist += 0.1;
+            if (dist >= 2)
+            {
+                walkingbackward = false;
+                dist = 0;
+            }
+        }
+        if (turningleft == true)
+        {
+            player.camera.rotateLeft(2);
+            if (player.camera.angle == 90)
+            {
+                turningleft = false;
+                player.camera.angle = 0;
+            }
+        }
+        if (turningright == true)
+        {
+            player.camera.rotateLeft(-2);
+            if (player.camera.angle == -90)
+            {
+                turningright = false;
+                player.camera.angle = 0;
+            }
+        }
 
         // START RENDERING CODE
 
