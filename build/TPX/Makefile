@@ -163,6 +163,30 @@ sources/cube.cpp.s:
 	cd /home/aleqsandr/Bureau/DungeonMaster/build && $(MAKE) -f TPX/CMakeFiles/DunjeonMaster.dir/build.make TPX/CMakeFiles/DunjeonMaster.dir/sources/cube.cpp.s
 .PHONY : sources/cube.cpp.s
 
+sources/hud.o: sources/hud.cpp.o
+.PHONY : sources/hud.o
+
+# target to build an object file
+sources/hud.cpp.o:
+	cd /home/aleqsandr/Bureau/DungeonMaster/build && $(MAKE) -f TPX/CMakeFiles/DunjeonMaster.dir/build.make TPX/CMakeFiles/DunjeonMaster.dir/sources/hud.cpp.o
+.PHONY : sources/hud.cpp.o
+
+sources/hud.i: sources/hud.cpp.i
+.PHONY : sources/hud.i
+
+# target to preprocess a source file
+sources/hud.cpp.i:
+	cd /home/aleqsandr/Bureau/DungeonMaster/build && $(MAKE) -f TPX/CMakeFiles/DunjeonMaster.dir/build.make TPX/CMakeFiles/DunjeonMaster.dir/sources/hud.cpp.i
+.PHONY : sources/hud.cpp.i
+
+sources/hud.s: sources/hud.cpp.s
+.PHONY : sources/hud.s
+
+# target to generate assembly for a file
+sources/hud.cpp.s:
+	cd /home/aleqsandr/Bureau/DungeonMaster/build && $(MAKE) -f TPX/CMakeFiles/DunjeonMaster.dir/build.make TPX/CMakeFiles/DunjeonMaster.dir/sources/hud.cpp.s
+.PHONY : sources/hud.cpp.s
+
 sources/monster.o: sources/monster.cpp.o
 .PHONY : sources/monster.o
 
@@ -274,6 +298,9 @@ help:
 	@echo "... sources/cube.o"
 	@echo "... sources/cube.i"
 	@echo "... sources/cube.s"
+	@echo "... sources/hud.o"
+	@echo "... sources/hud.i"
+	@echo "... sources/hud.s"
 	@echo "... sources/monster.o"
 	@echo "... sources/monster.i"
 	@echo "... sources/monster.s"

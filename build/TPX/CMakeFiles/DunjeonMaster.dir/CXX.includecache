@@ -33,6 +33,8 @@ cstdlib
 -
 vector
 -
+cmath
+-
 headers/scene.hpp
 /home/aleqsandr/Bureau/DungeonMaster/workspace/TPX/headers/scene.hpp
 headers/pixel.hpp
@@ -44,11 +46,21 @@ headers/player.hpp
 headers/monster.hpp
 /home/aleqsandr/Bureau/DungeonMaster/workspace/TPX/headers/monster.hpp
 
+/home/aleqsandr/Bureau/DungeonMaster/workspace/TPX/headers/./cube.hpp
+vector
+-
+glimac/common.hpp
+/home/aleqsandr/Bureau/DungeonMaster/workspace/TPX/headers/./glimac/common.hpp
+
 /home/aleqsandr/Bureau/DungeonMaster/workspace/TPX/headers/cube.hpp
 vector
 -
 glimac/common.hpp
 /home/aleqsandr/Bureau/DungeonMaster/workspace/TPX/headers/glimac/common.hpp
+
+/home/aleqsandr/Bureau/DungeonMaster/workspace/TPX/headers/hud.hpp
+./cube.hpp
+/home/aleqsandr/Bureau/DungeonMaster/workspace/TPX/headers/./cube.hpp
 
 /home/aleqsandr/Bureau/DungeonMaster/workspace/TPX/headers/monster.hpp
 vector
@@ -91,6 +103,20 @@ glimac/common.hpp
 /home/aleqsandr/Bureau/DungeonMaster/workspace/TPX/sources/glimac/common.hpp
 ../headers/cube.hpp
 /home/aleqsandr/Bureau/DungeonMaster/workspace/TPX/headers/cube.hpp
+
+/home/aleqsandr/Bureau/DungeonMaster/workspace/TPX/sources/hud.cpp
+iostream
+-
+string
+-
+fstream
+-
+GL/glew.h
+-
+glimac/glm.hpp
+-
+../headers/hud.hpp
+/home/aleqsandr/Bureau/DungeonMaster/workspace/TPX/headers/hud.hpp
 
 /home/aleqsandr/Bureau/DungeonMaster/workspace/TPX/sources/monster.cpp
 glimac/SDLWindowManager.hpp

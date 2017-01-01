@@ -6,6 +6,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 set(CMAKE_DEPENDS_CHECK_CXX
   "/home/aleqsandr/Bureau/DungeonMaster/workspace/TPX/dunjeonmaster.cpp" "/home/aleqsandr/Bureau/DungeonMaster/build/TPX/CMakeFiles/DunjeonMaster.dir/dunjeonmaster.cpp.o"
   "/home/aleqsandr/Bureau/DungeonMaster/workspace/TPX/sources/cube.cpp" "/home/aleqsandr/Bureau/DungeonMaster/build/TPX/CMakeFiles/DunjeonMaster.dir/sources/cube.cpp.o"
+  "/home/aleqsandr/Bureau/DungeonMaster/workspace/TPX/sources/hud.cpp" "/home/aleqsandr/Bureau/DungeonMaster/build/TPX/CMakeFiles/DunjeonMaster.dir/sources/hud.cpp.o"
   "/home/aleqsandr/Bureau/DungeonMaster/workspace/TPX/sources/monster.cpp" "/home/aleqsandr/Bureau/DungeonMaster/build/TPX/CMakeFiles/DunjeonMaster.dir/sources/monster.cpp.o"
   "/home/aleqsandr/Bureau/DungeonMaster/workspace/TPX/sources/pixel.cpp" "/home/aleqsandr/Bureau/DungeonMaster/build/TPX/CMakeFiles/DunjeonMaster.dir/sources/pixel.cpp.o"
   "/home/aleqsandr/Bureau/DungeonMaster/workspace/TPX/sources/player.cpp" "/home/aleqsandr/Bureau/DungeonMaster/build/TPX/CMakeFiles/DunjeonMaster.dir/sources/player.cpp.o"

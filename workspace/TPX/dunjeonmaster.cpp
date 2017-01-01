@@ -11,6 +11,7 @@
 #include <string>
 #include <cstdlib>
 #include <vector>
+#include <cmath>
 
 #include "headers/scene.hpp"
 #include "headers/pixel.hpp"
@@ -21,6 +22,15 @@
 using namespace glimac;
 using namespace std;
 using namespace glm;
+
+struct Vertex2DColor
+{
+    vec2 position;
+    vec3 color;
+
+    Vertex2DColor(vec2 _position, vec3 _color){position = _position; color = _color;};
+    Vertex2DColor(){};
+};
 
 int main(int argc, char** argv)
 {
@@ -37,8 +47,8 @@ int main(int argc, char** argv)
     }
 
     FilePath applicationPath(argv[0]);
-    Program program =   loadProgram(applicationPath.dirPath() + "shaders/" + argv[1],
-                        applicationPath.dirPath() + "shaders/" + argv[2]);
+    Program program =   loadProgram(applicationPath.dirPath() + "shaders/vertex.vs.glsl",
+                        applicationPath.dirPath() + "shaders/fragment.fs.glsl");
     program.use();
 
     std::cout << "OpenGL Version : " << glGetString(GL_VERSION) << std::endl;
@@ -53,7 +63,7 @@ int main(int argc, char** argv)
     Player player = Player();
     player.camera.moveTo(vec3(20, 0, 0));
 
-    // //CREATE MONSTER AT THE RIGHT PLACE
+    // CREATE MONSTER AT THE RIGHT PLACE
     // mat4 tmp = mat4(1.f);
     // mat4 posMonster =  translate(tmp * vec3(s.getwidth(), 0, s.getheight()));
     Monster m = Monster(vec3(20, 0, 0), 0, 2, 32, 32);
@@ -62,13 +72,20 @@ int main(int argc, char** argv)
     unique_ptr<Image> img = loadImage("assets/texture.jpg");
     unique_ptr<Image> sky = loadImage("assets/skybox.jpg");
     unique_ptr<Image> ground = loadImage("assets/floortexture.jpg");
+    unique_ptr<Image> glass = loadImage("assets/glass.png");
+    unique_ptr<Image> treasure = loadImage("assets/treasure.png");
+    unique_ptr<Image> hud = loadImage("assets/hudtest.png");
+    unique_ptr<Image> hud2 = loadImage("assets/hudtest2.png");
+    unique_ptr<Image> hud3 = loadImage("assets/hudtest3.png");
+    unique_ptr<Image> hud4 = loadImage("assets/hudtest4.png");
+    unique_ptr<Image> key = loadImage("assets/floortexturekey.png");
 
         // VBO
         
         GLuint vbo;
         glGenBuffers(1, &vbo);
         glBindBuffer(GL_ARRAY_BUFFER, vbo);
-        glBufferData(GL_ARRAY_BUFFER,c.getVertexCount() * sizeof(ShapeVertex), c.getDataPointer(), GL_STATIC_DRAW);
+        glBufferData(GL_ARRAY_BUFFER, c.getVertexCount() * sizeof(ShapeVertex), c.getDataPointer(), GL_STATIC_DRAW);
         glBindBuffer(GL_ARRAY_BUFFER, 0);
 
         GLuint vboskybox;
@@ -138,6 +155,62 @@ int main(int argc, char** argv)
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
         glBindTexture(GL_TEXTURE_2D, 0);
 
+        GLuint glasstex;
+        glGenTextures(1, &glasstex);
+        glBindTexture(GL_TEXTURE_2D, glasstex);
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, glass->getWidth(), glass->getHeight(), 0, GL_RGBA, GL_FLOAT, glass->getPixels());
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        glBindTexture(GL_TEXTURE_2D, 0);
+
+        GLuint treasuretex;
+        glGenTextures(1, &treasuretex);
+        glBindTexture(GL_TEXTURE_2D, treasuretex);
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, treasure->getWidth(), treasure->getHeight(), 0, GL_RGBA, GL_FLOAT, treasure->getPixels());
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        glBindTexture(GL_TEXTURE_2D, 0);
+
+        GLuint hudtex;
+        glGenTextures(1, &hudtex);
+        glBindTexture(GL_TEXTURE_2D, hudtex);
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, hud->getWidth(), hud->getHeight(), 0, GL_RGBA, GL_FLOAT, hud->getPixels());
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        glBindTexture(GL_TEXTURE_2D, 0);
+
+        GLuint hudtex2;
+        glGenTextures(1, &hudtex2);
+        glBindTexture(GL_TEXTURE_2D, hudtex2);
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, hud2->getWidth(), hud2->getHeight(), 0, GL_RGBA, GL_FLOAT, hud2->getPixels());
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        glBindTexture(GL_TEXTURE_2D, 0);
+
+        GLuint hudtex3;
+        glGenTextures(1, &hudtex3);
+        glBindTexture(GL_TEXTURE_2D, hudtex3);
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, hud3->getWidth(), hud3->getHeight(), 0, GL_RGBA, GL_FLOAT, hud3->getPixels());
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        glBindTexture(GL_TEXTURE_2D, 0);
+
+        GLuint hudtex4;
+        glGenTextures(1, &hudtex4);
+        glBindTexture(GL_TEXTURE_2D, hudtex4);
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, hud4->getWidth(), hud4->getHeight(), 0, GL_RGBA, GL_FLOAT, hud4->getPixels());
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        glBindTexture(GL_TEXTURE_2D, 0);
+
+        GLuint keytex;
+        glGenTextures(1, &keytex);
+        glBindTexture(GL_TEXTURE_2D, keytex);
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, key->getWidth(), key->getHeight(), 0, GL_RGBA, GL_FLOAT, key->getPixels());
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        glBindTexture(GL_TEXTURE_2D, 0);
+
         // END TEXTURES
 
     GLint uMVPMatrix    = glGetUniformLocation(program.getGLId(), "uMVPMatrix");
@@ -164,6 +237,10 @@ int main(int argc, char** argv)
     bool turningright = false;
 
     float dist = 0;
+    float rad = 0.f;
+    player.camera.angle = 0;
+
+    int hp = 3, keys = 0;
 
     bool done = false;
     while(!done)
@@ -190,19 +267,13 @@ int main(int argc, char** argv)
                     case SDLK_z:
                         walkingforward = true;
                         break;
-                    case SDLK_q:
-                        // nothing for the moment
-                        break;
                     case SDLK_s:
                         walkingbackward = true;
                         break;
-                    case SDLK_d:
-                        vitesseL = -0.02;
-                        break;
-                    case SDLK_a:
+                    case SDLK_q:
                         turningleft = true;
                         break;
-                    case SDLK_e:
+                    case SDLK_d:
                         turningright = true;
                         break;
                     default:
@@ -245,11 +316,18 @@ int main(int argc, char** argv)
             }
         }
 
-        if (walkingforward == true)
+        if (s.getpixel((s.currentpixel.x) * s.getwidth() + s.currentpixel.y).getred() == 255 && s.getpixel((s.currentpixel.x) * s.getwidth() + s.currentpixel.y).getgreen() == 255 && s.getpixel((s.currentpixel.x) * s.getwidth() + s.currentpixel.y).getblue() == 0)
+        {
+            if (keys == 0) keys = 1;
+        }
+
+        cout << s.currentpixel.x << " - " << s.currentpixel.y << endl;
+
+        if (walkingforward == true && player.camera.angle == 0)
         {
             if (player.camera.m_FrontVector.z == -1.0)
             {
-                if (s.getpixel((s.currentpixel.x+1) * s.getwidth() + s.currentpixel.y).getblue() == 255)
+                if (s.getpixel((s.currentpixel.x+1) * s.getwidth() + s.currentpixel.y).getred() == 255)
                 {
                     player.camera.moveFront(0.1);
                     dist += 0.1;
@@ -263,7 +341,7 @@ int main(int argc, char** argv)
             }
             if (player.camera.m_FrontVector.z == 1.0)
             {
-                if (s.getpixel((s.currentpixel.x-1) * s.getwidth() + s.currentpixel.y).getblue() == 255)
+                if (s.getpixel((s.currentpixel.x-1) * s.getwidth() + s.currentpixel.y).getred() == 255)
                 {
                     player.camera.moveFront(0.1);
                     dist += 0.1;
@@ -277,7 +355,7 @@ int main(int argc, char** argv)
             }
             if (player.camera.m_FrontVector.x == 1.0)
             {
-                if (s.getpixel(s.currentpixel.x * s.getwidth() + s.currentpixel.y + 1).getblue() == 255)
+                if (s.getpixel(s.currentpixel.x * s.getwidth() + s.currentpixel.y + 1).getred() == 255)
                 {
                     player.camera.moveFront(0.1);
                     dist += 0.1;
@@ -291,7 +369,7 @@ int main(int argc, char** argv)
             }
             if (player.camera.m_FrontVector.x == -1.0)
             {
-                if (s.getpixel(s.currentpixel.x * s.getwidth() + s.currentpixel.y - 1).getblue() == 255)
+                if (s.getpixel(s.currentpixel.x * s.getwidth() + s.currentpixel.y - 1).getred() == 255)
                 {
                     player.camera.moveFront(0.1);
                     dist += 0.1;
@@ -304,7 +382,7 @@ int main(int argc, char** argv)
                 }
             }
         }
-        if (walkingbackward == true)
+        if (walkingbackward == true && player.camera.angle == 0)
         {
             if (player.camera.m_FrontVector.z == -1.0)
             {
@@ -316,11 +394,6 @@ int main(int argc, char** argv)
                     {
                         walkingbackward = false;
                         dist = 0;
-                        // if (player.camera.m_FrontVector.z == -1.0) s.pixeldown();
-                        // if (player.camera.m_FrontVector.z == 1.0) s.pixelup();
-                        // if (player.camera.m_FrontVector.x == 1.0) s.pixelleft();
-                        // if (player.camera.m_FrontVector.x == -1.0) s.pixelright();
-                        // cout << "MY CURRENT PIXEL IS " << s.currentpixel << endl;
                         s.pixeldown();
                     }
                     
@@ -372,7 +445,7 @@ int main(int argc, char** argv)
                 }
             }
         }
-        if (turningleft == true)
+        if (turningleft == true && dist == 0)
         {
             player.camera.rotateLeft(2);
             if (player.camera.angle == 90)
@@ -381,7 +454,7 @@ int main(int argc, char** argv)
                 player.camera.angle = 0;
             }
         }
-        if (turningright == true)
+        if (turningright == true && dist == 0)
         {
             player.camera.rotateLeft(-2);
             if (player.camera.angle == -90)
@@ -397,8 +470,9 @@ int main(int argc, char** argv)
 
         m.drawMonster(locTexture);
 
+        ProjMatrix = perspective(glm::radians(70.f + (sin(1.5f * rad)/2)), 800.f/600.f, 0.1f, 1100.f);
+        rad += 0.01;
 
-        ProjMatrix = perspective(glm::radians(70.f), 800.f/600.f, 0.1f, 1100.f);
         glBindVertexArray(vaoskybox);
 
         glBindTexture(GL_TEXTURE_2D, 0);
@@ -429,6 +503,17 @@ int main(int argc, char** argv)
 
                     glDrawArrays(GL_TRIANGLES, 0, c.getVertexCount());
                 }
+                else if (s.getpixel(s.getwidth()*j + i).getred() == 255 && s.getpixel(s.getwidth()*j + i).getgreen() == 0 && s.getpixel(s.getwidth()*j + i).getblue() == 0)
+                {
+                    MVMatrix = player.camera.getViewMatrix() * translate(mat4(1.f), vec3(2*i, 0, (-2*j)));
+                    glUniformMatrix4fv(uMVPMatrix,    1, GL_FALSE, value_ptr(ProjMatrix * MVMatrix));
+                    glUniformMatrix4fv(uMVMatrix,     1, GL_FALSE, value_ptr(MVMatrix));
+                    glUniformMatrix4fv(uNormalMatrix, 1, GL_FALSE, value_ptr(NormalMatrix));
+
+                    glUniform1i(locTexture, 0);
+                    glBindTexture(GL_TEXTURE_2D, treasuretex);
+                    glDrawArrays(GL_TRIANGLES, 0, c.getVertexCount());
+                }
             }
         }
 
@@ -437,20 +522,46 @@ int main(int argc, char** argv)
         {
             for (int j = 0; j < s.getheight(); j++)
             {
-                MVMatrix = player.camera.getViewMatrix() * translate(mat4(1.f), vec3(2*i, -2, (-2*j)));
-                glUniformMatrix4fv(uMVPMatrix,    1, GL_FALSE, value_ptr(ProjMatrix * MVMatrix));
-                glUniformMatrix4fv(uMVMatrix,     1, GL_FALSE, value_ptr(MVMatrix));
-                glUniformMatrix4fv(uNormalMatrix, 1, GL_FALSE, value_ptr(NormalMatrix));
-                glUniform1i(locTexture, 0);
-                glBindTexture(GL_TEXTURE_2D, floortex);
-
-                glDrawArrays(GL_TRIANGLES, 0, c.getVertexCount());
+                if (s.getpixel(s.getwidth()*j + i).getred() == 255 && s.getpixel(s.getwidth()*j + i).getgreen() == 255 && s.getpixel(s.getwidth()*j + i).getblue() == 0)
+                {
+                    MVMatrix = player.camera.getViewMatrix() * translate(mat4(1.f), vec3(2*i, -2, (-2*j)));
+                    glUniformMatrix4fv(uMVPMatrix,    1, GL_FALSE, value_ptr(ProjMatrix * MVMatrix));
+                    glUniformMatrix4fv(uMVMatrix,     1, GL_FALSE, value_ptr(MVMatrix));
+                    glUniformMatrix4fv(uNormalMatrix, 1, GL_FALSE, value_ptr(NormalMatrix));
+                    glUniform1i(locTexture, 0);
+                    glBindTexture(GL_TEXTURE_2D, keytex);
+                    glDrawArrays(GL_TRIANGLES, 0, c.getVertexCount());
+                }
+                else
+                {
+                    MVMatrix = player.camera.getViewMatrix() * translate(mat4(1.f), vec3(2*i, -2, (-2*j)));
+                    glUniformMatrix4fv(uMVPMatrix,    1, GL_FALSE, value_ptr(ProjMatrix * MVMatrix));
+                    glUniformMatrix4fv(uMVMatrix,     1, GL_FALSE, value_ptr(MVMatrix));
+                    glUniformMatrix4fv(uNormalMatrix, 1, GL_FALSE, value_ptr(NormalMatrix));
+                    glUniform1i(locTexture, 0);
+                    glBindTexture(GL_TEXTURE_2D, floortex);
+                    glDrawArrays(GL_TRIANGLES, 0, c.getVertexCount());
+                }
             }
         }
 
-        glBindTexture(GL_TEXTURE_2D, 0);
-        glBindVertexArray(0);
+        MVMatrix = mat4(1.f);
+        ProjMatrix = mat4(1.f);
+        NormalMatrix = mat4(1.f);
+        glUniformMatrix4fv(uMVPMatrix,    1, GL_FALSE, value_ptr(ProjMatrix * MVMatrix));
+        glUniformMatrix4fv(uMVMatrix,     1, GL_FALSE, value_ptr(MVMatrix));
+        glUniformMatrix4fv(uNormalMatrix, 1, GL_FALSE, value_ptr(NormalMatrix));
+        if (keys == 0) glBindTexture(GL_TEXTURE_2D, hudtex);
+        if (keys == 1) glBindTexture(GL_TEXTURE_2D, hudtex2);
+        if (keys == 2) glBindTexture(GL_TEXTURE_2D, hudtex3);
+        if (keys == 3) glBindTexture(GL_TEXTURE_2D, hudtex4);
+        glUniform1i(locTexture, 0);
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+        glDrawArrays(GL_TRIANGLES, 0, c.getVertexCount());
+        glDisable(GL_BLEND);
 
+        glBindVertexArray(0);
         windowManager.swapBuffers();
 
         // END RENDERING CODE
