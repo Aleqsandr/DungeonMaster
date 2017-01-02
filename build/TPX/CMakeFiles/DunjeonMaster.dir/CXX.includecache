@@ -35,6 +35,10 @@ vector
 -
 cmath
 -
+SDL/SDL.h
+-
+SDL/SDL_mixer.h
+-
 headers/scene.hpp
 /home/aleqsandr/Bureau/DungeonMaster/workspace/TPX/headers/scene.hpp
 headers/pixel.hpp
@@ -69,6 +73,10 @@ glimac/glm.hpp
 -
 glimac/Sphere.hpp
 -
+../headers/player.hpp
+/home/aleqsandr/Bureau/DungeonMaster/workspace/TPX/headers/player.hpp
+../headers/scene.hpp
+/home/aleqsandr/Bureau/DungeonMaster/workspace/TPX/headers/scene.hpp
 GL/glew.h
 -
 

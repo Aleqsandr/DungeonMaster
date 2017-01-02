@@ -10,7 +10,6 @@
 #include "../headers/monster.hpp"
 #include <glimac/Sphere.hpp>
 
-
 using namespace glimac;
 using namespace glm;
 using namespace std;
@@ -18,7 +17,8 @@ using namespace std;
 Monster::Monster(vec3 _position, int _vitesse, GLfloat radius, GLsizei discLat, GLsizei discLong):sphere(Sphere(radius, discLat, discLong)){
 	position = _position;
 	vitesse = _vitesse;
-	
+
+    sphere = Sphere(radius, discLat, discLong);
 
 	//INITIALIZATION 
     unique_ptr<Image> monst = loadImage("assets/monster.jpg");
@@ -57,21 +57,15 @@ Monster::Monster(vec3 _position, int _vitesse, GLfloat radius, GLsizei discLat, 
     GLuint monstertex;
     glGenTextures(1, &monstertex);
     glBindTexture(GL_TEXTURE_2D, monstertex);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, monst->getWidth(), monst->getHeight(), 0, GL_RGBA, GL_FLOAT, monst->getPixels()); 
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, monst->getWidth(), monst->getHeight(), 0, GL_RGBA, GL_FLOAT, monst->getPixels());
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glBindTexture(GL_TEXTURE_2D, 0);
 
     // END TEXTURES
 
-
     // END INITIALIZATION CODE
 
-    vector<vec3> rotates;
-    for (int i = 0; i < 32; i++)
-    {
-        rotates.push_back(sphericalRand(3.f));
-    }
     vaomonster = vao;
     monstertexture = monstertex;
 }
@@ -81,7 +75,7 @@ vec3 Monster::getPosition() {return position;}
 int Monster::getVitesse() {return vitesse;}
 bool Monster::getKilled() {return kill;}
 int Monster::getTouch(){return touch;}
-
+    
 void Monster::setPosition(vec3 value) {position = value;}
 void Monster::setVitesse(int value) {vitesse = value;}
 void Monster::setKilled(bool value) {kill = value;}
@@ -91,10 +85,9 @@ void Monster::drawMonster(GLuint locTexture)
 // application loop :
     // START RENDERING CODE
 
-    glBindVertexArray(vaomonster);
-    
-    glBindTexture(GL_TEXTURE_2D, 0);
-        glDisable(GL_TEXTURE_2D);
+        glBindVertexArray(vaomonster);
+        // glBindTexture(GL_TEXTURE_2D, 0);
+        // glDisable(GL_TEXTURE_2D);
         glBindTexture(GL_TEXTURE_2D, monstertexture);
         glUniform1i(locTexture, 0);
         glDrawArrays(GL_TRIANGLES, 0, sphere.getVertexCount());

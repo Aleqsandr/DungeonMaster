@@ -12,6 +12,8 @@
 #include <cstdlib>
 #include <vector>
 #include <cmath>
+#include <SDL/SDL.h>
+#include <SDL/SDL_mixer.h>
 
 #include "headers/scene.hpp"
 #include "headers/pixel.hpp"
@@ -60,25 +62,23 @@ int main(int argc, char** argv)
     s.loadmap();
     Cube c = Cube();
     Sphere skybox = Sphere(200, 32, 32);
+    Sphere monster = Sphere(.6, 32, 16);
     Player player = Player();
     player.camera.moveTo(vec3(20, 0, 0));
-
-    // CREATE MONSTER AT THE RIGHT PLACE
-    // mat4 tmp = mat4(1.f);
-    // mat4 posMonster =  translate(tmp * vec3(s.getwidth(), 0, s.getheight()));
-    Monster m = Monster(vec3(20, 0, 0), 0, 2, 32, 32);
-
 
     unique_ptr<Image> img = loadImage("assets/texture.jpg");
     unique_ptr<Image> sky = loadImage("assets/skybox.jpg");
     unique_ptr<Image> ground = loadImage("assets/floortexture.jpg");
+    unique_ptr<Image> groundkey = loadImage("assets/floortexturekey.png");
     unique_ptr<Image> glass = loadImage("assets/glass.png");
     unique_ptr<Image> treasure = loadImage("assets/treasure.png");
-    unique_ptr<Image> hud = loadImage("assets/hudtest.png");
-    unique_ptr<Image> hud2 = loadImage("assets/hudtest2.png");
-    unique_ptr<Image> hud3 = loadImage("assets/hudtest3.png");
-    unique_ptr<Image> hud4 = loadImage("assets/hudtest4.png");
-    unique_ptr<Image> key = loadImage("assets/floortexturekey.png");
+    unique_ptr<Image> hud = loadImage("assets/hud.png");
+    unique_ptr<Image> health = loadImage("assets/health.png");
+    unique_ptr<Image> key0 = loadImage("assets/key0.png");
+    unique_ptr<Image> key1 = loadImage("assets/key1.png");
+    unique_ptr<Image> key2 = loadImage("assets/key2.png");
+    unique_ptr<Image> key3 = loadImage("assets/key3.png");
+    unique_ptr<Image> monst = loadImage("assets/monster.jpg");
 
         // VBO
         
@@ -92,6 +92,12 @@ int main(int argc, char** argv)
         glGenBuffers(1, &vboskybox);
         glBindBuffer(GL_ARRAY_BUFFER, vboskybox);
         glBufferData(GL_ARRAY_BUFFER, skybox.getVertexCount() * sizeof(ShapeVertex), skybox.getDataPointer(), GL_STATIC_DRAW);
+        glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+        GLuint vbomonster;
+        glGenBuffers(1, &vbomonster);
+        glBindBuffer(GL_ARRAY_BUFFER, vbomonster);
+        glBufferData(GL_ARRAY_BUFFER, monster.getVertexCount() * sizeof(ShapeVertex), monster.getDataPointer(), GL_STATIC_DRAW);
         glBindBuffer(GL_ARRAY_BUFFER, 0);
 
         // END VBO
@@ -121,6 +127,19 @@ int main(int argc, char** argv)
         glEnableVertexAttribArray(VERTEX_TEXTURE_LOCATION);
         glEnableVertexAttribArray(VERTEX_NORMAL_LOCATION);    
         glBindBuffer(GL_ARRAY_BUFFER, vboskybox);
+        glVertexAttribPointer(VERTEX_POSITION_LOCATION, 3, GL_FLOAT, GL_FALSE, sizeof(ShapeVertex), (const GLvoid*) 0);
+        glVertexAttribPointer(VERTEX_NORMAL_LOCATION, 3, GL_FLOAT, GL_FALSE, sizeof(ShapeVertex), (const GLvoid*) offsetof(ShapeVertex, normal));
+        glVertexAttribPointer(VERTEX_TEXTURE_LOCATION, 2, GL_FLOAT, GL_FALSE, sizeof(ShapeVertex), (const GLvoid*) offsetof(ShapeVertex, texCoords));
+        glBindBuffer(GL_ARRAY_BUFFER, 0);
+        glBindVertexArray(0);
+
+        GLuint vaomonster;
+        glGenVertexArrays(1, &vaomonster);
+        glBindVertexArray(vaomonster);
+        glEnableVertexAttribArray(VERTEX_POSITION_LOCATION);
+        glEnableVertexAttribArray(VERTEX_TEXTURE_LOCATION);
+        glEnableVertexAttribArray(VERTEX_NORMAL_LOCATION);
+        glBindBuffer(GL_ARRAY_BUFFER, vbomonster);
         glVertexAttribPointer(VERTEX_POSITION_LOCATION, 3, GL_FLOAT, GL_FALSE, sizeof(ShapeVertex), (const GLvoid*) 0);
         glVertexAttribPointer(VERTEX_NORMAL_LOCATION, 3, GL_FLOAT, GL_FALSE, sizeof(ShapeVertex), (const GLvoid*) offsetof(ShapeVertex, normal));
         glVertexAttribPointer(VERTEX_TEXTURE_LOCATION, 2, GL_FLOAT, GL_FALSE, sizeof(ShapeVertex), (const GLvoid*) offsetof(ShapeVertex, texCoords));
@@ -179,34 +198,58 @@ int main(int argc, char** argv)
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
         glBindTexture(GL_TEXTURE_2D, 0);
 
-        GLuint hudtex2;
-        glGenTextures(1, &hudtex2);
-        glBindTexture(GL_TEXTURE_2D, hudtex2);
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, hud2->getWidth(), hud2->getHeight(), 0, GL_RGBA, GL_FLOAT, hud2->getPixels());
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-        glBindTexture(GL_TEXTURE_2D, 0);
-
-        GLuint hudtex3;
-        glGenTextures(1, &hudtex3);
-        glBindTexture(GL_TEXTURE_2D, hudtex3);
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, hud3->getWidth(), hud3->getHeight(), 0, GL_RGBA, GL_FLOAT, hud3->getPixels());
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-        glBindTexture(GL_TEXTURE_2D, 0);
-
-        GLuint hudtex4;
-        glGenTextures(1, &hudtex4);
-        glBindTexture(GL_TEXTURE_2D, hudtex4);
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, hud4->getWidth(), hud4->getHeight(), 0, GL_RGBA, GL_FLOAT, hud4->getPixels());
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-        glBindTexture(GL_TEXTURE_2D, 0);
-
         GLuint keytex;
         glGenTextures(1, &keytex);
         glBindTexture(GL_TEXTURE_2D, keytex);
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, key->getWidth(), key->getHeight(), 0, GL_RGBA, GL_FLOAT, key->getPixels());
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, groundkey->getWidth(), groundkey->getHeight(), 0, GL_RGBA, GL_FLOAT, groundkey->getPixels());
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        glBindTexture(GL_TEXTURE_2D, 0);
+
+        GLuint healthtex;
+        glGenTextures(1, &healthtex);
+        glBindTexture(GL_TEXTURE_2D, healthtex);
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, health->getWidth(), health->getHeight(), 0, GL_RGBA, GL_FLOAT, health->getPixels());
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        glBindTexture(GL_TEXTURE_2D, 0);
+
+        GLuint key0tex;
+        glGenTextures(1, &key0tex);
+        glBindTexture(GL_TEXTURE_2D, key0tex);
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, key0->getWidth(), key0->getHeight(), 0, GL_RGBA, GL_FLOAT, key0->getPixels());
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        glBindTexture(GL_TEXTURE_2D, 0);
+
+        GLuint key1tex;
+        glGenTextures(1, &key1tex);
+        glBindTexture(GL_TEXTURE_2D, key1tex);
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, key1->getWidth(), key1->getHeight(), 0, GL_RGBA, GL_FLOAT, key1->getPixels());
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        glBindTexture(GL_TEXTURE_2D, 0);
+
+        GLuint key2tex;
+        glGenTextures(1, &key2tex);
+        glBindTexture(GL_TEXTURE_2D, key2tex);
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, key2->getWidth(), key2->getHeight(), 0, GL_RGBA, GL_FLOAT, key2->getPixels());
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        glBindTexture(GL_TEXTURE_2D, 0);
+
+        GLuint key3tex;
+        glGenTextures(1, &key3tex);
+        glBindTexture(GL_TEXTURE_2D, key3tex);
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, key3->getWidth(), key3->getHeight(), 0, GL_RGBA, GL_FLOAT, key3->getPixels());
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        glBindTexture(GL_TEXTURE_2D, 0);
+
+        GLuint monstertex;
+        glGenTextures(1, &monstertex);
+        glBindTexture(GL_TEXTURE_2D, monstertex);
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, monst->getWidth(), monst->getHeight(), 0, GL_RGBA, GL_FLOAT, monst->getPixels());
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
         glBindTexture(GL_TEXTURE_2D, 0);
@@ -217,6 +260,11 @@ int main(int argc, char** argv)
     GLint uMVMatrix     = glGetUniformLocation(program.getGLId(), "uMVMatrix");
     GLint uNormalMatrix = glGetUniformLocation(program.getGLId(), "uNormalMatrix");
     GLint locTexture    = glGetUniformLocation(program.getGLId(), "uTexture");
+    GLint uKs           = glGetUniformLocation(program.getGLId(), "uKs");
+    GLint uKd           = glGetUniformLocation(program.getGLId(), "uKd");
+    GLint uShininess    = glGetUniformLocation(program.getGLId(), "uShininess");
+    GLint uLightDir_vs  = glGetUniformLocation(program.getGLId(), "uLightDir_vs");
+    GLint uLightIntensity  = glGetUniformLocation(program.getGLId(), "uLightIntensity");
 
     glm::mat4 ProjMatrix, MVMatrix, NormalMatrix;
     ProjMatrix = perspective(radians(70.f), 800.f/600.f, 0.1f, 100.f);
@@ -240,7 +288,7 @@ int main(int argc, char** argv)
     float rad = 0.f;
     player.camera.angle = 0;
 
-    int hp = 3, keys = 0;
+    float monsterY = 0;
 
     bool done = false;
     while(!done)
@@ -316,18 +364,11 @@ int main(int argc, char** argv)
             }
         }
 
-        if (s.getpixel((s.currentpixel.x) * s.getwidth() + s.currentpixel.y).getred() == 255 && s.getpixel((s.currentpixel.x) * s.getwidth() + s.currentpixel.y).getgreen() == 255 && s.getpixel((s.currentpixel.x) * s.getwidth() + s.currentpixel.y).getblue() == 0)
-        {
-            if (keys == 0) keys = 1;
-        }
-
-        cout << s.currentpixel.x << " - " << s.currentpixel.y << endl;
-
         if (walkingforward == true && player.camera.angle == 0)
         {
             if (player.camera.m_FrontVector.z == -1.0)
             {
-                if (s.getpixel((s.currentpixel.x+1) * s.getwidth() + s.currentpixel.y).getred() == 255)
+                if (s.getpixel((s.currentpixel.x+1) * s.getwidth() + s.currentpixel.y).getred() == 255 || s.getpixel((s.currentpixel.x+1) * s.getwidth() + s.currentpixel.y).getblue() == 255)
                 {
                     player.camera.moveFront(0.1);
                     dist += 0.1;
@@ -341,7 +382,7 @@ int main(int argc, char** argv)
             }
             if (player.camera.m_FrontVector.z == 1.0)
             {
-                if (s.getpixel((s.currentpixel.x-1) * s.getwidth() + s.currentpixel.y).getred() == 255)
+                if (s.getpixel((s.currentpixel.x-1) * s.getwidth() + s.currentpixel.y).getred() == 255 || s.getpixel((s.currentpixel.x-1) * s.getwidth() + s.currentpixel.y).getblue() == 255)
                 {
                     player.camera.moveFront(0.1);
                     dist += 0.1;
@@ -355,7 +396,7 @@ int main(int argc, char** argv)
             }
             if (player.camera.m_FrontVector.x == 1.0)
             {
-                if (s.getpixel(s.currentpixel.x * s.getwidth() + s.currentpixel.y + 1).getred() == 255)
+                if (s.getpixel(s.currentpixel.x * s.getwidth() + s.currentpixel.y + 1).getred() == 255 || s.getpixel(s.currentpixel.x * s.getwidth() + s.currentpixel.y + 1).getblue() == 255)
                 {
                     player.camera.moveFront(0.1);
                     dist += 0.1;
@@ -369,7 +410,7 @@ int main(int argc, char** argv)
             }
             if (player.camera.m_FrontVector.x == -1.0)
             {
-                if (s.getpixel(s.currentpixel.x * s.getwidth() + s.currentpixel.y - 1).getred() == 255)
+                if (s.getpixel(s.currentpixel.x * s.getwidth() + s.currentpixel.y - 1).getred() == 255 || s.getpixel(s.currentpixel.x * s.getwidth() + s.currentpixel.y - 1).getblue() == 255)
                 {
                     player.camera.moveFront(0.1);
                     dist += 0.1;
@@ -386,7 +427,7 @@ int main(int argc, char** argv)
         {
             if (player.camera.m_FrontVector.z == -1.0)
             {
-                if (s.getpixel((s.currentpixel.x-1) * s.getwidth() + s.currentpixel.y).getblue() == 255)
+                if (s.getpixel((s.currentpixel.x-1) * s.getwidth() + s.currentpixel.y).getred() == 255 || s.getpixel((s.currentpixel.x-1) * s.getwidth() + s.currentpixel.y).getblue() == 255)
                 {
                     player.camera.moveFront(-0.1);
                     dist += 0.1;
@@ -401,7 +442,7 @@ int main(int argc, char** argv)
             }
             if (player.camera.m_FrontVector.z == 1.0)
             {
-                if (s.getpixel((s.currentpixel.x+1) * s.getwidth() + s.currentpixel.y).getblue() == 255)
+                if (s.getpixel((s.currentpixel.x+1) * s.getwidth() + s.currentpixel.y).getred() == 255 || s.getpixel((s.currentpixel.x+1) * s.getwidth() + s.currentpixel.y).getblue() == 255)
                 {
                     player.camera.moveFront(-0.1);
                     dist += 0.1;
@@ -416,7 +457,7 @@ int main(int argc, char** argv)
             }
             if (player.camera.m_FrontVector.x == 1.0)
             {
-                if (s.getpixel(s.currentpixel.x * s.getwidth() + s.currentpixel.y - 1).getblue() == 255)
+                if (s.getpixel(s.currentpixel.x * s.getwidth() + s.currentpixel.y - 1).getred() == 255 || s.getpixel(s.currentpixel.x * s.getwidth() + s.currentpixel.y - 1).getblue() == 255)
                 {
                     player.camera.moveFront(-0.1);
                     dist += 0.1;
@@ -431,7 +472,7 @@ int main(int argc, char** argv)
             }
             if (player.camera.m_FrontVector.x == -1.0)
             {
-                if (s.getpixel(s.currentpixel.x * s.getwidth() + s.currentpixel.y + 1).getblue() == 255)
+                if (s.getpixel(s.currentpixel.x * s.getwidth() + s.currentpixel.y + 1).getred() == 255 || s.getpixel(s.currentpixel.x * s.getwidth() + s.currentpixel.y + 1).getblue() == 255)
                 {
                     player.camera.moveFront(-0.1);
                     dist += 0.1;
@@ -467,18 +508,32 @@ int main(int argc, char** argv)
         // START RENDERING CODE
 
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-        m.drawMonster(locTexture);
-
         ProjMatrix = perspective(glm::radians(70.f + (sin(1.5f * rad)/2)), 800.f/600.f, 0.1f, 1100.f);
         rad += 0.01;
+        monsterY += 0.01;
+
+            // FIRST, THE LIGHT
+
+
+            vec3 Ks = vec3(1, 1, 1);
+            vec3 Kd = vec3(1, 1, 1);
+            float shininess = 0.8;
+            vec3 lightdir = vec3(1, 1, 1);
+            vec3 lightintensity = vec3(1, 1, 1);
+            glUniform3fv(uKs,    1, value_ptr(Ks));
+            glUniform3fv(uKd,    1, value_ptr(Kd));
+            glUniform1f(uShininess, shininess);
+            glUniform3fv(uLightDir_vs, 1, value_ptr(lightdir * (mat3)player.camera.getViewMatrix()));
+            glUniform3fv(uLightIntensity, 1, value_ptr(lightintensity));
+
+
 
         glBindVertexArray(vaoskybox);
 
         glBindTexture(GL_TEXTURE_2D, 0);
         glDisable(GL_TEXTURE_2D);
         MVMatrix = player.camera.getViewMatrix() * translate(mat4(1.f), vec3(0, 0, -5));
-        glUniformMatrix4fv(uMVPMatrix,    1, GL_FALSE, value_ptr(ProjMatrix *MVMatrix));
+        glUniformMatrix4fv(uMVPMatrix,    1, GL_FALSE, value_ptr(ProjMatrix * MVMatrix));
         glUniformMatrix4fv(uMVMatrix,     1, GL_FALSE, value_ptr(MVMatrix));
         glUniformMatrix4fv(uNormalMatrix, 1, GL_FALSE, value_ptr(NormalMatrix));
         glBindTexture(GL_TEXTURE_2D, skytex);
@@ -494,6 +549,7 @@ int main(int argc, char** argv)
             {
                 if (s.getpixel(s.getwidth()*j + i).getred() == 0 && s.getpixel(s.getwidth()*j + i).getgreen() == 0 && s.getpixel(s.getwidth()*j + i).getblue() == 0)
                 {
+                    glBindVertexArray(vao);
                     MVMatrix = player.camera.getViewMatrix() * translate(mat4(1.f), vec3(2*i, 0, (-2*j)));
                     glUniformMatrix4fv(uMVPMatrix,    1, GL_FALSE, value_ptr(ProjMatrix * MVMatrix));
                     glUniformMatrix4fv(uMVMatrix,     1, GL_FALSE, value_ptr(MVMatrix));
@@ -505,19 +561,33 @@ int main(int argc, char** argv)
                 }
                 else if (s.getpixel(s.getwidth()*j + i).getred() == 255 && s.getpixel(s.getwidth()*j + i).getgreen() == 0 && s.getpixel(s.getwidth()*j + i).getblue() == 0)
                 {
+                    glBindVertexArray(vao);
                     MVMatrix = player.camera.getViewMatrix() * translate(mat4(1.f), vec3(2*i, 0, (-2*j)));
                     glUniformMatrix4fv(uMVPMatrix,    1, GL_FALSE, value_ptr(ProjMatrix * MVMatrix));
                     glUniformMatrix4fv(uMVMatrix,     1, GL_FALSE, value_ptr(MVMatrix));
                     glUniformMatrix4fv(uNormalMatrix, 1, GL_FALSE, value_ptr(NormalMatrix));
 
-                    glUniform1i(locTexture, 0);
                     glBindTexture(GL_TEXTURE_2D, treasuretex);
+                    glUniform1i(locTexture, 0);
                     glDrawArrays(GL_TRIANGLES, 0, c.getVertexCount());
+                }
+                else if (s.getpixel(s.getwidth()*j + i).getred() == 0 && s.getpixel(s.getwidth()*j + i).getgreen() == 0 && s.getpixel(s.getwidth()*j + i).getblue() == 255)
+                {
+                    glBindVertexArray(vaomonster);
+                    MVMatrix = player.camera.getViewMatrix() * translate(mat4(1.f), vec3(2*i, sin(monsterY*1.5f)/3, (-2*j))) * rotate(mat4(1.f), 160.f, vec3(0, 1, 0));
+                    glUniformMatrix4fv(uMVPMatrix,    1, GL_FALSE, value_ptr(ProjMatrix * MVMatrix));
+                    glUniformMatrix4fv(uMVMatrix,     1, GL_FALSE, value_ptr(MVMatrix));
+                    glUniformMatrix4fv(uNormalMatrix, 1, GL_FALSE, value_ptr(NormalMatrix));
+
+                    glBindTexture(GL_TEXTURE_2D, monstertex);
+                    glUniform1i(locTexture, 0);
+                    glDrawArrays(GL_TRIANGLES, 0, monster.getVertexCount());
                 }
             }
         }
 
         // dessin du sol
+        glBindVertexArray(vao);
         for (int i = 0; i < s.getwidth(); i++)
         {
             for (int j = 0; j < s.getheight(); j++)
@@ -545,20 +615,21 @@ int main(int argc, char** argv)
             }
         }
 
-        MVMatrix = mat4(1.f);
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+        MVMatrix = mat4(1.f); //* scale(mat4(1.f), vec3(0.5, 0.5, 0.5));
         ProjMatrix = mat4(1.f);
         NormalMatrix = mat4(1.f);
         glUniformMatrix4fv(uMVPMatrix,    1, GL_FALSE, value_ptr(ProjMatrix * MVMatrix));
         glUniformMatrix4fv(uMVMatrix,     1, GL_FALSE, value_ptr(MVMatrix));
         glUniformMatrix4fv(uNormalMatrix, 1, GL_FALSE, value_ptr(NormalMatrix));
-        if (keys == 0) glBindTexture(GL_TEXTURE_2D, hudtex);
-        if (keys == 1) glBindTexture(GL_TEXTURE_2D, hudtex2);
-        if (keys == 2) glBindTexture(GL_TEXTURE_2D, hudtex3);
-        if (keys == 3) glBindTexture(GL_TEXTURE_2D, hudtex4);
+
+        glBindTexture(GL_TEXTURE_2D, hudtex);
         glUniform1i(locTexture, 0);
-        glEnable(GL_BLEND);
-        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
         glDrawArrays(GL_TRIANGLES, 0, c.getVertexCount());
+        glBindTexture(GL_TEXTURE_2D, 0);
+
         glDisable(GL_BLEND);
 
         glBindVertexArray(0);

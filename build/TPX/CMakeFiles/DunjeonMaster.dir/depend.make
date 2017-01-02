@@ -301,8 +301,12 @@ TPX/CMakeFiles/DunjeonMaster.dir/sources/hud.cpp.o: /home/aleqsandr/Bureau/Dunge
 TPX/CMakeFiles/DunjeonMaster.dir/sources/hud.cpp.o: /home/aleqsandr/Bureau/DungeonMaster/workspace/third-party/include/glm/vector_relational.hpp
 
 TPX/CMakeFiles/DunjeonMaster.dir/sources/monster.cpp.o: /home/aleqsandr/Bureau/DungeonMaster/workspace/TPX/headers/monster.hpp
+TPX/CMakeFiles/DunjeonMaster.dir/sources/monster.cpp.o: /home/aleqsandr/Bureau/DungeonMaster/workspace/TPX/headers/pixel.hpp
+TPX/CMakeFiles/DunjeonMaster.dir/sources/monster.cpp.o: /home/aleqsandr/Bureau/DungeonMaster/workspace/TPX/headers/player.hpp
+TPX/CMakeFiles/DunjeonMaster.dir/sources/monster.cpp.o: /home/aleqsandr/Bureau/DungeonMaster/workspace/TPX/headers/scene.hpp
 TPX/CMakeFiles/DunjeonMaster.dir/sources/monster.cpp.o: /home/aleqsandr/Bureau/DungeonMaster/workspace/TPX/sources/monster.cpp
 TPX/CMakeFiles/DunjeonMaster.dir/sources/monster.cpp.o: /home/aleqsandr/Bureau/DungeonMaster/workspace/glimac/include/glimac/FilePath.hpp
+TPX/CMakeFiles/DunjeonMaster.dir/sources/monster.cpp.o: /home/aleqsandr/Bureau/DungeonMaster/workspace/glimac/include/glimac/FreeflyCamera.hpp
 TPX/CMakeFiles/DunjeonMaster.dir/sources/monster.cpp.o: /home/aleqsandr/Bureau/DungeonMaster/workspace/glimac/include/glimac/Image.hpp
 TPX/CMakeFiles/DunjeonMaster.dir/sources/monster.cpp.o: /home/aleqsandr/Bureau/DungeonMaster/workspace/glimac/include/glimac/SDLWindowManager.hpp
 TPX/CMakeFiles/DunjeonMaster.dir/sources/monster.cpp.o: /home/aleqsandr/Bureau/DungeonMaster/workspace/glimac/include/glimac/Sphere.hpp

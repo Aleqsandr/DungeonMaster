@@ -4,6 +4,8 @@
 #include <vector>
 #include <glimac/glm.hpp>
 #include <glimac/Sphere.hpp>
+#include "../headers/player.hpp"
+#include "../headers/scene.hpp"
 #include <GL/glew.h>
 
 
